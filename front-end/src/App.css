@@ -23,6 +23,33 @@
   background-color: skyblue;
 }
 
+.inputBox{
+  display: block;
+  margin: 25px;
+  padding: 7px;
+  width: 300px;
+  border: 1px solid skyblue;
+}
+
+.inputBox:hover {
+  background-color: rgb(240 249 255);
+  border-color: rgb(125 211 252);
+  color: rgb(3 105 161);
+}
+
+.appButton{
+  margin: 25px;
+  padding: 10px;
+  width: 150px;
+  background-color: skyblue;
+  border: 1px solid;
+  cursor: pointer;
+}
+
+.register{
+  margin-left: 30%;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
