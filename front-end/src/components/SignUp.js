@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
@@ -8,6 +8,13 @@ export default function SignUp() {
         password: "",
     });
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const auth = localStorage.getItem('user');
+        if (auth) {
+            navigate('/')
+        }
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
