@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
     const [registerData, setRegisterData] = useState({
-        name: "",
+        username: "",
         email: "Technology@gmail.com",
         password: "",
     });
+
+    
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -22,7 +24,7 @@ export default function SignUp() {
         let result = await fetch('http://localhost:5000/register', {
             method: 'post',
             body: JSON.stringify({
-                name: registerData.name,
+                username: registerData.username,
                 email: registerData.email,
                 password: registerData.password
             }),
@@ -35,7 +37,7 @@ export default function SignUp() {
 
         // reset the form
         setRegisterData({
-            name: "",
+            username: "",
             email: "Technology@gmail.com",
             password: "",
         });
@@ -51,10 +53,11 @@ export default function SignUp() {
 
     return (
         <div className="register">
+            {/* <pre>{JSON.stringify(registerData,undefined,2)}</pre> */}
             <form onSubmit={handleSubmit}>
                 <h1 style={{ color: "blue", margin: "20px" }}>Register</h1>
                 <input className="inputBox" type="text" placeholder="Enter Name"
-                    name="name" value={registerData.name}
+                    name="username" value={registerData.username}
                     onChange={handleChange} />
                 <input className="inputBox" type="text" placeholder="Enter Email"
                     name="email" value={registerData.email}
