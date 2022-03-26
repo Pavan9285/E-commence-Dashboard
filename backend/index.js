@@ -29,7 +29,7 @@ app.post("/register", async (req, res) => {
 })
 
 app.post("login", async (req, res) => {
-    if (req.body.email && req.body.password) {
+    if (req.body.username && req.body.password) {
         let user = await User.findOne(req.body).select("-password");
         user ? res.send(user) : res.send({ result: 'No user found' })
     } else {

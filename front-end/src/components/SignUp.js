@@ -96,7 +96,7 @@ export default function SignUp() {
             <form onSubmit={handleSubmit}>
                 <h1 style={{ color: "blue", margin: "20px" }}>Register</h1>
 
-                <input className="inputBox" type="text" placeholder="Enter Name"
+                <input className="inputBox" type="text" placeholder="Enter Username"
                     name="username" value={registerData.username}
                     onChange={handleChange} />
                 <p style={{ color: "red" }}>{formErrors.username}</p>
