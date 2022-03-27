@@ -11,20 +11,25 @@ export default function Nav() {
 
     return (
         <div>
-            <ul className='nav-ul'>
-                <li><Link to="/">Products</Link> </li>
-                <li><Link to="/add">Add Product</Link> </li>
-                <li><Link to="/update">Update Product</Link> </li>
-                <li><Link to="/profile">Profile</Link> </li>
-
-                {
-                    auth ? <li><Link to="/signup" onClick={logout}>Logout</Link></li>
-                        : <>
-                            <li><Link to="/signup">Sign Up</Link></li>
-                            <li><Link to="/login">Login</Link></li>
-                        </>
-                }
-            </ul>
+            <img
+                alt='logo'
+                className='logo'
+                src='https://indian-retailer.s3.ap-south-1.amazonaws.com/s3fs-public/2021-03/ecom%20%281%29.jpg'
+            />
+            {
+                auth ?
+                    <ul className='nav-ul'>
+                        <li><Link to="/">Products</Link> </li>
+                        <li><Link to="/add">Add Product</Link> </li>
+                        <li><Link to="/update">Update Product</Link> </li>
+                        <li><Link to="/profile">Profile</Link> </li>
+                        <li><Link to="/signup" onClick={logout}>Logout ({JSON.parse(auth).username})</Link></li>
+                    </ul>
+                    : <ul className='nav-ul nav-right'>
+                        <li><Link to="/signup">Sign Up</Link></li>
+                        <li><Link to="/login">Login</Link></li>
+                    </ul>
+            }
         </div>
     )
 }

@@ -46,13 +46,25 @@
   cursor: pointer;
 }
 
-.register{
+.register, .product{
   margin-left: 30%;
 }
 
 .login{
   margin-left: 30%;
   margin-top: 30px;
+}
+
+.nav-right{
+  text-align: right;
+}
+
+.logo{
+  width: 72px;
+  float: left;
+  border-radius: 15px;
+  margin-top: 2px;
+  margin-left: 20px;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -1,40 +1,15 @@
 const express = require('express');
 const cors = require('cors');
-require('./db/config');
-const User = require("./db/User");
 const app = express();
+const port = 5000;
+const registerRoutes = require("./routes/api");
+
+require('./db/config');
 
 app.use(express.json());
 app.use(cors());
+app.use("/", registerRoutes);
 
-// const connectDB = async () => {
-//     mongoose.connect('mongodb://localhost:27017/e-commerce');
-//     const productSchema = new mongoose.Schema({});
-//     const product = mongoose.model('product', productSchema);
-//     const data = await product.find();
-//     console.log("data:", data);
-// }
-// connectDB();
-
-app.get("/", (req, res) => {
-    res.send("App is working!")
-})
-
-app.post("/register", async (req, res) => {
-    let user = new User(req.body);
-    let result = await user.save();
-    result = result.toObject();
-    delete result.password;
-    res.send(result);
-})
-
-app.post("login", async (req, res) => {
-    if (req.body.username && req.body.password) {
-        let user = await User.findOne(req.body).select("-password");
-        user ? res.send(user) : res.send({ result: 'No user found' })
-    } else {
-        res.send({ result: 'No user found' })
-    }
-})
-
-app.listen(5000)
+app.listen(port, () => {
+    console.log(`Server started on Port ${port}...`);
+});
