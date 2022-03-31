@@ -19,12 +19,8 @@ export default function SignUp() {
         }
     });
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setFormErrors(validate(registerData));
-        setIsSubmit(true);
-
-        if (Object.keys(formErrors).length === 0 && isSubmit) {
+    useEffect(() => {
+        async function submitForm() {
             // console.log(registerData)
             let result = await fetch('http://localhost:5000/register', {
                 method: 'post',
@@ -48,6 +44,15 @@ export default function SignUp() {
             });
             navigate("/");
         }
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
+            submitForm();
+        }
+    }, [formErrors, isSubmit])
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setFormErrors(validate(registerData));
+        setIsSubmit(true);
     }
 
     const handleChange = (e) => {

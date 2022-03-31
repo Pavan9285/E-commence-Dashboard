@@ -26,4 +26,13 @@ router.post("/add-product", async (req, res) => {
     res.send(result);
 })
 
+router.get("/products", async (req, res) => {
+    let products = await Product.find();
+    if (products.length > 0) {
+        res.send(products);
+    } else {
+        res.send({ result: "No Products found" })
+    }
+})
+
 module.exports = router;

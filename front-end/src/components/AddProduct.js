@@ -6,10 +6,12 @@ const AddProduct = () => {
     const [category, setCategory] = useState("");
     const [company, setCompany] = useState("");
     const [error, setError] = useState(false);
+    const [isSubmit, setIsSubmit] = useState(false);
 
     const addProduct = async () => {
         if (!name || !price || !category || !company) {
             setError(true);
+            setIsSubmit(false);
             return false;
         }
 
@@ -23,11 +25,25 @@ const AddProduct = () => {
             }
         });
         result = await result.json();
+        setIsSubmit(true);
+        setName("");
+        setPrice("");
+        setCategory("");
+        setCompany("");
+    }
+
+    const divStyle = {
+        backgroundColor: "#beddbe",
+        display: "inline-block",
+        fontWeight: "bold",
+        padding: "10px",
+        color: "green"
     }
 
     return (
         <div className='product'>
             <h1>Add Product</h1>
+            {isSubmit && <div style={divStyle}>Product added successfully!!</div>}
             <input type="text" placeholder='Enter product name'
                 className='inputBox' value={name} required
                 onChange={(e) => { setName(e.target.value) }} />
