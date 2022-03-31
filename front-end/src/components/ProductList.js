@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
-let getRoute = 'http://localhost:5000/products';
-let deleteRoute = 'http://localhost:5000/product';
+import { Link } from 'react-router-dom';
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
@@ -10,8 +8,11 @@ const ProductList = () => {
         getProducts();
     }, []);
 
+    let getProductsUrl = 'http://localhost:5000/products';
+    let deleteProductUrl = 'http://localhost:5000/product';
+
     const getProducts = async () => {
-        let result = await fetch(getRoute);
+        let result = await fetch(getProductsUrl);
         // result in read stream formate so we called result.json()
         result = await result.json();
         setProducts(result);
@@ -25,7 +26,7 @@ const ProductList = () => {
     };
 
     const deleteProductApiCall = async (id) => {
-        let result = await fetch(`${deleteRoute}/${id}`, {
+        let result = await fetch(`${deleteProductUrl}/${id}`, {
             method: "delete"
         });
         result = await result.json();
@@ -53,7 +54,10 @@ const ProductList = () => {
                         <li>{item.price}</li>
                         <li>{item.category}</li>
                         <li>{item.company}</li>
-                        <li><button onClick={() => deleteProduct(item._id)}>Delete</button></li>
+                        <li>
+                            <button onClick={() => deleteProduct(item._id)}>Delete</button>
+                            <Link to={`/update/${item._id}`}>Update</Link>
+                        </li>
                     </ul>
                 )
             }

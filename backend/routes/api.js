@@ -35,9 +35,28 @@ router.get("/products", async (req, res) => {
     }
 })
 
+router.get("/product/:id", async (req, res) => {
+    let product = await Product.findOne({ _id: req.params.id });
+    if (product) {
+        res.send(product);
+    } else {
+        res.send({ result: "No Product found" })
+    }
+})
+
 router.delete("/product/:id", async (req, res) => {
     const result = await Product.deleteOne({ _id: req.params.id })
     res.send(result);
 })
+
+router.put("/product/:id", async (req, res) => {
+    let result = await Product.updateOne(
+        { _id: req.params.id },
+        {
+            $set: req.body
+        }
+    )
+    res.send(result);
+});
 
 module.exports = router;

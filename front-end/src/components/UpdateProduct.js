@@ -1,16 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
-const AddProduct = () => {
+const UpdateProduct = () => {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [category, setCategory] = useState("");
     const [company, setCompany] = useState("");
     const [error, setError] = useState(false);
     const [isSubmit, setIsSubmit] = useState(false);
+    const params = useParams();
+    const navigate = useNavigate();
 
-    let addProductUrl = 'http://localhost:5000/add-product';
+    useEffect(() => {
+        getProductDetails();
+    }, [])
 
-    const addProduct = async () => {
+    let productUrl = 'http://localhost:5000/product';
+
+
+    const getProductDetails = async () => {
+        let result = await fetch(`${productUrl}/${params.id}`);
+        result = await result.json();
+        setName(result.name);
+        setPrice(result.price);
+        setCategory(result.category);
+        setCompany(result.company);
+    }
+
+    const updateProduct = async () => {
         if (!name || !price || !category || !company) {
             setError(true);
             setIsSubmit(false);
@@ -18,20 +35,18 @@ const AddProduct = () => {
         }
 
         // console.log(name, price, category, company);
-        const userId = JSON.parse(localStorage.getItem('user'))._id;
-        let result = await fetch(addProductUrl, {
-            method: 'post',
-            body: JSON.stringify({ name, price, category, company, userId }),
+        let result = await fetch(`${productUrl}/${params.id}`, {
+            method: "put",
+            body: JSON.stringify({ name, price, category, company }),
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': "application/json"
             }
         });
         await result.json();
         setIsSubmit(true);
-        setName("");
-        setPrice("");
-        setCategory("");
-        setCompany("");
+        setTimeout(() => {
+            navigate("/");
+        }, 2000);
     }
 
     const divStyle = {
@@ -44,8 +59,8 @@ const AddProduct = () => {
 
     return (
         <div className='product'>
-            <h1>Add Product</h1>
-            {isSubmit && <div style={divStyle}>Product added successfully!!</div>}
+            <h1>Update Product</h1>
+            {isSubmit && <div style={divStyle}>Product updated successfully!!</div>}
             <input type="text" placeholder='Enter product name'
                 className='inputBox' value={name} required
                 onChange={(e) => { setName(e.target.value) }} />
@@ -66,9 +81,9 @@ const AddProduct = () => {
                 onChange={(e) => { setCompany(e.target.value) }} />
             {error && !company && <span className='invalid-input'>Enter valid product company</span>}
 
-            <button className='appButton' onClick={addProduct}>Add Product</button>
+            <button className='appButton' onClick={updateProduct}>Update Product</button>
         </div>
     )
 }
 
-export default AddProduct;
+export default UpdateProduct;
