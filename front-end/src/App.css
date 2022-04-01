@@ -1,21 +1,21 @@
-.nav-ul li{
+.nav-ul li {
   display: inline-block;
   padding: 10px;
 }
 
-.nav-ul li a{
+.nav-ul li a {
   color: #fff;
   padding: 5px;
   text-decoration: none;
 }
 
-.nav-ul{
+.nav-ul {
   padding: 5px;
   margin: 0;
   background-color: skyblue;
 }
 
-.footer{
+.footer {
   position: absolute;
   bottom: 0;
   text-align: center;
@@ -23,7 +23,7 @@
   background-color: skyblue;
 }
 
-.inputBox{
+.inputBox {
   display: block;
   margin: 25px;
   padding: 7px;
@@ -37,7 +37,7 @@
   color: rgb(3 105 161);
 }
 
-.appButton{
+.appButton {
   margin: 25px;
   padding: 10px;
   width: 150px;
@@ -46,20 +46,21 @@
   cursor: pointer;
 }
 
-.register, .product{
+.register,
+.product {
   margin-left: 30%;
 }
 
-.login{
+.login {
   margin-left: 30%;
   margin-top: 30px;
 }
 
-.nav-right{
+.nav-right {
   text-align: right;
 }
 
-.logo{
+.logo {
   width: 72px;
   float: left;
   border-radius: 15px;
@@ -67,27 +68,35 @@
   margin-left: 20px;
 }
 
-.invalid-input{
+.invalid-input {
   color: red;
   margin-top: -20px;
   display: block;
   margin-left: 20px;
 }
 
-.product-list{
+.product-list {
   text-align: center;
   margin-top: 50px;
 }
 
-.product-list ul li{
+.product-list ul li {
   display: inline-block;
   border: 1px solid skyblue;
   padding: 5px;
   width: 150px;
 }
 
-.product-list ul{
+.product-list ul {
   margin: 0;
+}
+
+.search-product-box {
+  width: 400px;
+  margin: 20px;
+  height: 40px;
+  border: 1px solid skyblue;
+  padding-left: 20px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -115,6 +124,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
