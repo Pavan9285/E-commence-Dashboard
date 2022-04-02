@@ -17,7 +17,7 @@ const Login = () => {
         }
     });
 
-    const handleSubmit = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
 
         let result = await fetch('http://localhost:5000/login', {
@@ -31,8 +31,10 @@ const Login = () => {
             }
         });
         result = await result.json();
-        if (result.username) {
-            localStorage.setItem("user", JSON.stringify(result));
+        if (result.auth) {
+            localStorage.setItem("user", JSON.stringify(result.user));
+            localStorage.setItem("token", JSON.stringify(result.auth));
+
             // reset the form
             setLoginData({
                 username: "",
@@ -53,7 +55,7 @@ const Login = () => {
 
     return (
         <div className="login">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleLogin}>
                 <h1 style={{ color: "blue", margin: "20px" }}>Login</h1>
 
                 <input className="inputBox" type="text" placeholder="Enter Username"

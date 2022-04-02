@@ -34,7 +34,8 @@ export default function SignUp() {
                 }
             });
             result = await result.json();
-            localStorage.setItem("user", JSON.stringify(result));
+            localStorage.setItem("user", JSON.stringify(result.result));
+            localStorage.setItem("token", JSON.stringify(result.auth));
 
             // reset the form
             setRegisterData({

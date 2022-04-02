@@ -29,13 +29,13 @@ const JwtSign = (res, user) => {
     })
 }
 
-router.post("/add-product", async (req, res) => {
+router.post("/add-product", verifyToken, async (req, res) => {
     let product = new Product(req.body);
     let result = await product.save();
     res.send(result);
 })
 
-router.get("/products", async (req, res) => {
+router.get("/products", verifyToken, async (req, res) => {
     let products = await Product.find();
     if (products.length > 0) {
         res.send(products);
@@ -44,7 +44,7 @@ router.get("/products", async (req, res) => {
     }
 })
 
-router.get("/product/:id", async (req, res) => {
+router.get("/product/:id", verifyToken, async (req, res) => {
     let product = await Product.findOne({ _id: req.params.id });
     if (product) {
         res.send(product);
@@ -53,12 +53,12 @@ router.get("/product/:id", async (req, res) => {
     }
 })
 
-router.delete("/product/:id", async (req, res) => {
+router.delete("/product/:id", verifyToken, async (req, res) => {
     const result = await Product.deleteOne({ _id: req.params.id })
     res.send(result);
 })
 
-router.put("/product/:id", async (req, res) => {
+router.put("/product/:id", verifyToken, async (req, res) => {
     let result = await Product.updateOne(
         { _id: req.params.id },
         {
@@ -69,7 +69,7 @@ router.put("/product/:id", async (req, res) => {
 });
 
 // search api
-router.get("/search/:key", async (req, res) => {
+router.get("/search/:key", verifyToken, async (req, res) => {
     let result = await Product.find({
         "$or": [
             { name: { $regex: req.params.key } },
@@ -80,5 +80,18 @@ router.get("/search/:key", async (req, res) => {
     });
     res.send(result);
 });
+
+function verifyToken(req, res, next) {
+    let token = req.headers['authorization'];
+    if (token) {
+        token = token.split(' ')[1];
+        Jwt.verify(token, jwtKey, (err, valid) => {
+            err ? res.status(401).send({ result: "Please provide valid token" }) : next();
+        })
+    } else {
+        res.status(403).send({ result: "Please add token with header" })
+    }
+    next();
+}
 
 module.exports = router;
