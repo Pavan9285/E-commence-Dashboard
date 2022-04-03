@@ -91,7 +91,6 @@ function verifyToken(req, res, next) {
     } else {
         res.status(403).send({ result: "Please add token with header" })
     }
-    next();
 }
 
 module.exports = router;

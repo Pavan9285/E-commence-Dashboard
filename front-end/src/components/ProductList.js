@@ -12,7 +12,11 @@ const ProductList = () => {
     let deleteProductUrl = 'http://localhost:5000/product';
 
     const getProducts = async () => {
-        let result = await fetch(getProductsUrl);
+        let result = await fetch(getProductsUrl, {
+            headers: {
+                authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
+            }
+        });
         // result in read stream formate so we called result.json()
         result = await result.json();
         setProducts(result);
@@ -27,6 +31,9 @@ const ProductList = () => {
 
     const deleteProductApiCall = async (id) => {
         let result = await fetch(`${deleteProductUrl}/${id}`, {
+            headers: {
+                authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
+            },
             method: "delete"
         });
         result = await result.json();
@@ -38,7 +45,11 @@ const ProductList = () => {
     const searchHandle = async (event) => {
         let key = event.target.value;
         if (key) {
-            let result = await fetch(`http://localhost:5000/search/${key}`)
+            let result = await fetch(`http://localhost:5000/search/${key}`, {
+                headers: {
+                    authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
             result = await result.json();
             if (result) {
                 setProducts(result)
@@ -77,7 +88,7 @@ const ProductList = () => {
                         </li>
                     </ul>
                 )
-                : <h1>No Result Found!</h1>
+                    : <h1>No Result Found!</h1>
             }
         </div>
     )
